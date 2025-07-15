@@ -1,12 +1,31 @@
-// This is the service worker script, which executes in its own context
-// when the extension is installed or refreshed (or when you access its console).
-// It would correspond to the background script in chrome extensions v2.
+chrome.runtime.onInstalled.addListener((details) => {
+    if (details.reason === 'install') {
+        chrome.storage.local.set({ overrideEnabled: true });
+    }
+    updateRuleBasedOnStorage();
+});
 
-console.log("This prints to the console of the service worker (background script)")
+chrome.runtime.onStartup.addListener(() => {
+    updateRuleBasedOnStorage();
+});
 
-// Importing and using functionality from external files is also possible.
-importScripts('service-worker-utils.js')
+function updateRuleBasedOnStorage() {
+    chrome.storage.local.get({ overrideEnabled: true }, (data) => {
+        updateRule(data.overrideEnabled);
+    });
+}
 
-// If you want to import a file that is deeper in the file hierarchy of your
-// extension, simply do `importScripts('path/to/file.js')`.
-// The path should be relative to the file `manifest.json`.
+function updateRule(enabled) {
+    const rule = {
+        id: 1,
+        priority: 1,
+        action: { type: 'redirect', redirect: { extensionPath: '/override.js' } },
+        condition: { urlFilter: '*/alloy-editor-no-ckeditor-min.js*', resourceTypes: ['script'] }
+    };
+
+    if (enabled) {
+        chrome.declarativeNetRequest.updateDynamicRules({ addRules: [rule], removeRuleIds: [1] });
+    } else {
+        chrome.declarativeNetRequest.updateDynamicRules({ addRules: [], removeRuleIds: [1] });
+    }
+}

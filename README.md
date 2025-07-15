@@ -1,101 +1,108 @@
-<div align="center">
-    <img src="https://raw.githubusercontent.com/SimGus/chrome-addon-v3-starter/master/logo/logo-128.png"/>
-    <h1>Chrome Extension v3 Starter</h1>
-    <h3>A minimal template of a Chrome v3 addon</h3>
-</div>
+# JS Override: Corrector para Alloy Editor en Liferay
 
-This repository contains a minimal Chrome/Chromium extension that uses the newest version of the manifest (v3).
+![Logo del Proyecto](logo/logo.svg)
 
-You can use it as a basis to develop an extension.
-It can also give you more insights about how to turn a v2 extension to v3.
+[![Licencia: MIT](https://img.shields.io/badge/Licencia-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-In other words, this is a **working, installable v3 extension** example meant for you to **jumpstart** the development of your own extension.
+Una extensión de navegador para corregir errores en la funcionalidad de tablas del editor Alloy en Liferay 7.2.1, mediante la sobreescritura de archivos JavaScript específicos.
 
+---
 
-## Installation
-- **Fork** this repo, then **clone your forked repo locally**. If you don't have a github account, you can simply download a zip of the repo and unzip it on your computer.
-- **Open [the extensions page](chrome://extensions)** in your browser: `chrome://extensions`. This link works on any chromium-based browser.
-- If you did not do it already, **toggle the "developer mode"**. This is usually a toggle button at the top right of the extensions page.
-- Click the button **_load unpacked extension_**.
-- In the window that pops up, **select the folder that contains this minimal extension**, then **click _ok_**.
-- **Done!** A new extension called _Chrome Addon v3 Starter_ should have appeared in the list.
+## Tabla de Contenidos
 
-## Q&A
-> Does this work only on Chrome or on **other web browsers** as well?
+- [Acerca del Proyecto](#acerca-del-proyecto)
+  - [Construido Con](#construido-con)
+- [Empezando](#empezando)
+  - [Prerrequisitos](#prerrequisitos)
+  - [Instalación](#instalación)
+- [Uso](#uso)
+- [Cómo Funciona](#cómo-funciona)
+- [Licencia](#licencia)
+- [Contacto](#contacto)
 
-At the moment, this works on every chromium-based web browser that supports v3 extensions.
-Therefore, you should be able to install this extension on any of the following browsers (as long as they are up-to-date):
-- _Free and open-source browsers_:
-    - Chromium
-    - Brave
-- _Proprietary browsers_:
-    - Chrome
-    - Edge
-    - Vivaldi
-    - Opera
+---
 
-> So it doesn't work on **Firefox** or **Safari**?
+## Acerca del Proyecto
 
-No, Firefox uses a different extension format. That being said, it is usually not too hard to port extensions from Chrome to Firefox.
-Read [their porting documentation](https://extensionworkshop.com/documentation/develop/porting-a-google-chrome-extension/) for more information.
+Esta extensión fue creada para solucionar un problema específico con las tablas en el editor de texto **Alloy Editor** utilizado en **Liferay 7.2.1**. El problema se origina en el archivo `alloy-editor-no-ckeditor-min.js`, y esta herramienta lo soluciona de forma no invasiva.
 
-Safari uses yet another extension format and porting is usually harder.
-You can find more information [here](https://bartsolutions.github.io/2020/11/20/safari-extension/).
+En lugar de modificar los archivos del portal de Liferay directamente, la extensión intercepta la solicitud de red de este archivo y la reemplaza con una versión corregida (`override.js`) que se encuentra dentro de la extensión.
 
-> Does this work on **Chrome for Android/iOS**?
+### Construido Con
 
-Chrome for mobile doesn't currently support extensions.
+Este es un proyecto minimalista que utiliza tecnologías web estándar:
 
-> I don't need a **popup tool** for my extension! Can I remove it?
+*   JavaScript (Vanilla)
+*   HTML5
+*   CSS3
 
-Yes, simply delete the `popup` folder and remove the `default_popup` property from the manifest.
+---
 
-> I changed some code in the extension, but my **changes aren't taken into account**!
+## Empezando
 
-For most of the changes you make, you will need to reload your extension for the changes to be applied.
-To do that, go to the chrome://extensions page and click the reload button of your extension.
-Note that most of the changes you will make to the settings page or the popup don't require reloading the extension.
+Para poner en marcha una copia local, sigue estos sencillos pasos.
 
-> Can I follow a **tutorial about a v2 extension** with this?
+### Prerrequisitos
 
-Most of what you will find in those tutorials still holds with v3.
+Necesitas un navegador basado en Chromium que soporte extensiones de Manifest V3.
+*   Google Chrome
+*   Microsoft Edge
 
-However, a few things (notably best practices) have changed.
-You should read the [official migration page (v2 to v3)](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/) before following such a tutorial.
+### Instalación
 
-> When I make an erroneous change in my service worker, the extension doesn't load! How can I **debug a service worker**?
+Como es una extensión en desarrollo, se instala de la siguiente manera:
 
-Using the debugger if your service worker is not loaded is not possible.
+1.  Clona el repositorio:
+    ```sh
+    git clone https://github.com/gaston38kpo/js-override.git
+    ```
+2.  Abre tu navegador y ve a la página de extensiones:
+    *   En Chrome: `chrome://extensions`
+    *   En Edge: `edge://extensions`
+3.  Activa el **Modo de desarrollador** (generalmente es un interruptor en la esquina superior derecha).
+4.  Haz clic en el botón **"Cargar descomprimida"**.
+5.  Selecciona la carpeta del proyecto que acabas de clonar.
 
-However, if you want to test some piece of code before putting it in your service worker, you can:
-- load your extension with a working version of the service worker.
-- click on "service worker" on the page _chrome://extensions_. This will open the console attached to the service worker.
-- paste your code in the console and see if any error is logged.
+¡Listo! La extensión ya estará instalada y activa en tu navegador.
 
-Note that in this console, you have access to anything your service worker has access to, including its variables, functions and chrome APIs.
+---
 
-> How do I **uninstall** this extension from my browser?
+## Uso
 
-- Go to the [extensions page](chrome://extensions): chrome://extensions.
-  There should be a card with the name of this extension as title.
-  If you don't see such a card, it means the extension is not installed.
-- Simply click the _Delete_ button at the bottom of the card. Click _ok_ if a popup asks you for confirmation. The extension is now uninstalled.
+Una vez instalada, la extensión funcionará automáticamente.
 
-> I want to **push my changes to my own repo**, how do I do this?
+1.  Navega a una página de tu portal Liferay 7.2.1 que utilice el Alloy Editor.
+2.  Por defecto, la sobreescritura está **activada** y el error de las tablas debería estar corregido.
+3.  Para controlar la extensión, haz clic en su icono en la barra de herramientas del navegador. Se abrirá un popup.
+    *   **Interruptor (Enable/Disable):** Te permite activar o desactivar la sobreescritura del archivo. Si lo desactivas, Liferay cargará su archivo original.
+    *   **Botón "Refresh Page":** Recarga la pestaña actual para aplicar los cambios del interruptor.
 
-- If you forked this repo and cloned your own fork locally, git will push to your fork on your account automatically (i.e. use the command `git push` or `git push origin <your-branch>`).
+!Popup de la extensión
 
-- If you downloaded a zip or simply cloned this repo locally, do the following:
-    - Create a github account if you don't already have one and install git on your machine.
-    - Create a new (empty) repo on your github and copy its url.
-    - Open a terminal in the folder where the extension is cloned.
-    - Run the command `git init`, then `git commit -am "Initial commit"`
-    - Run the command `git remote add origin <url-of-your-repo>`
-    - Run `git push -u origin master`. The extension code is now on your repo, on brnach _master_.
-    - If you want, you can make the _master_ branch the default one and delete the _main_ branch in the settings of your repo.
+---
 
-## External resources
-- [Official feature summary for manifest v3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/)
-- [Migrating from v2 to v3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/) + [very useful checklist once you think you are done](https://developer.chrome.com/docs/extensions/mv3/mv3-migration-checklist/)
-- [Excellent write-ups of a migration](https://github.com/kentbrew/learning-manifest-v3)
-- [Another example of a v3 extension (older code)](https://gist.github.com/dotproto/3a328d6b187621b445499ba503599dc0)
+## Cómo Funciona
+
+La extensión utiliza la API `declarativeNetRequest` de Chrome para lograr su objetivo de una manera eficiente y segura, sin necesidad de permisos para leer el contenido de las páginas.
+
+1.  **Service Worker (`service-worker.js`):** Al instalarse o al iniciar el navegador, el service worker comprueba si la extensión debe estar activada (según lo guardado en `chrome.storage.local`).
+2.  **Regla de Redirección:**
+    *   Si está **activada**, instala una regla con `ID: 1`.
+    *   Esta regla intercepta cualquier petición de red cuyo `urlFilter` coincida con `*/alloy-editor-no-ckeditor-min.js*`.
+    *   La acción de la regla es de tipo `redirect`, y redirige la petición al archivo local `/override.js` de la extensión.
+    *   Si está **desactivada**, la regla con `ID: 1` se elimina, permitiendo que la petición original continúe sin cambios.
+3.  **Popup (`popup/`):** La interfaz del popup permite al usuario modificar el estado (activado/desactivado) guardado en `chrome.storage.local` y, en consecuencia, actualizar la regla de redirección.
+
+---
+
+## Licencia
+
+Distribuido bajo la Licencia MIT. Consulta `LICENSE` para obtener más información.
+
+---
+
+## Contacto
+
+Gastón Giacobini - @gaston38kpo
+
+Enlace del Proyecto: https://github.com/gaston38kpo/js-override
