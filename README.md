@@ -1,4 +1,4 @@
-# JS Override: Corrector para Alloy Editor en Liferay
+# EXT ALLOY EDITOR OVERRIDE: Corrector para Alloy Editor en Liferay
 
 ![Logo del Proyecto](logo/logo.svg)
 
@@ -103,6 +103,6 @@ Distribuido bajo la Licencia MIT. Consulta `LICENSE` para obtener más informaci
 
 ## Contacto
 
-Gastón Giacobini - @gaston38kpo
+Gastón Giacobini
 
-Enlace del Proyecto: https://github.com/gaston38kpo/js-override
+Enlace del Proyecto: https://github.com/gaston38kpo/ext-alloy-editor-override
