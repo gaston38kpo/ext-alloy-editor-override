@@ -54,7 +54,7 @@ Como es una extensión en desarrollo, se instala de la siguiente manera:
 
 1.  Clona el repositorio:
     ```sh
-    git clone https://github.com/gaston38kpo/js-override.git
+    git clone https://github.com/gaston38kpo/ext-alloy-editor-override.git
     ```
 2.  Abre tu navegador y ve a la página de extensiones:
     *   En Chrome: `chrome://extensions`
